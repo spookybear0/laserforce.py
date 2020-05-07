@@ -5,25 +5,27 @@ class Stats:
         id = id.split()
         PARAMS = {"requestId": "1" ,"regionId": "9999","siteId": "9999", "memberRegion": id[0], "memberSite": id[1],"memberId": id[2], "token": ""}
         r = requests.post(url = "http://v2.iplaylaserforce.com/memberDetails.php", data=PARAMS)
-        content = r.json()
-        content = content["centre"]
-        content = content[0]
-        return content
-    def center(self, id):
-        content = self.request(id)
-        return content["name"]
+        print(r.text)
+        r = r.json()
+        r = r["centre"]
+        r = r[0]
+        return r
+    def centre(self, id):
+        r = self.request(id)
+        return r["name"]
     def codename(self, id):
-        content = self.request(id)
-        return content["codename"]
+        r = self.request(id)
+        return r["codename"]
     def joined(self, id):
-        content = self.request(id)
-        return content["joined"]
+        r = self.request(id)
+        return r["joined"]
     def missions(self, id):
-        content = self.request(id)
-        return content["missions"]
+        r = self.request(id)
+        return r["missions"]
     def skillLevel(self, id):
-        content = self.request(id)
-        return content["skillLevelNum"]
+        r = self.request(id)
+        return r["skillLevelNum"]
     def skillLevelName(self, id):
-        content = self.request(id)
-        return content["skillLevelName"]
+        r = self.request(id)
+        return r["skillLevelName"]
+Stats().request("4-43-703")
