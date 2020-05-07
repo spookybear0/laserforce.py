@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="laserforce.api",
-    version="1.0.0",
+    version="1.0.1",
     author="SpookyBear0",
     author_email="collinmcarroll@gmail.com",
     description="An API for Laserforce in python!",
