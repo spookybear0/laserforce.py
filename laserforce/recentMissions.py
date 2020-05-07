@@ -7,5 +7,3 @@ class Missions:
         r = requests.post(url = "http://v2.iplaylaserforce.com/recentMissions.php", data=PARAMS)
         r = r.json()
         r = r["mission"]
-mission = Missions()
-mission.request("4-43-703")
