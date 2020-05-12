@@ -126,22 +126,29 @@ class Stats:
     def skillLevelName(self):
         return self.content["skillLevelName"]
 class Leaderboard:
-    def __init__(self, content, amount) -> None:
+    def __init__(self, content, amount=100) -> None:
+        print(content)
         content = content["top100"]
-        content = content[amount-1]
         self.content = content
     @property
     def games(self):
+        self.content = self.content[self.amount-1]
         return self.content["3"]
     @property
     def codename(self):
+        self.content = self.content[self.amount-1]
         return self.content["2"]
     @property
     def rank(self):
+        self.content = self.content[self.amount-1]
         return self.content["0"]
     @property
     def site(self):
+        self.content = self.content[self.amount-1]
         return self.content["1"]
+    @property
+    def myrank(self):
+        return self.content[100]
 class queryError(Exception):
     pass
 class IDError(Exception):
@@ -175,7 +182,18 @@ def get_leaderboard(amount, type: str ="games") -> Leaderboard:
             queryType = 1
         else:
             raise queryError
-    PARAMS = {"requestId": "1" ,"regionId": "9999","siteId": "9999", "memberRegion": "9999", "memberSite": "9999","memberId": "9999", "token": "", "selectedQueryType": queryType, "selectedCentreId":"0", "selectedGroupId":"0"}
+    PARAMS = {"requestId": "2" ,"regionId": "9999","siteId": "9999", "memberRegion": "9999", "memberSite": "9999","memberId": "9999", "token": "", "selectedQueryType": queryType, "selectedCentreId":"0", "selectedGroupId":"0"}
     return Leaderboard(requests.post(url="http://v2.iplaylaserforce.com/globalScoring.php", data=PARAMS).json(), amount)
-test = get_summary("4-43-1265")
-print(test.standard[2])
+def get_leaderboard_from_id(id, type: str ="games") -> Leaderboard:
+    """type can be games or score"""
+    id = str(id).replace("-", " ", 2)
+    id = id.split()
+    if type == "games":
+        queryType = 0
+    else:
+        if type == "score":
+            queryType = 1
+        else:
+            raise queryError
+    PARAMS = {"requestId": "2" ,"regionId": "9999","siteId": "9999", "memberRegion": id[0], "memberSite": id[1],"memberId": id[2], "token": "", "selectedQueryType": queryType, "selectedCentreId":"0", "selectedGroupId":"0"}
+    return Leaderboard(requests.post(url="http://v2.iplaylaserforce.com/globalScoring.php", data=PARAMS).json())
