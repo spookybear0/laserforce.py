@@ -2,7 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
-pypy.bat
+.bat
 # C extensions
 *.so
 .pypirc
