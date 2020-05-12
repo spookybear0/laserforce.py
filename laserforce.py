@@ -1,4 +1,33 @@
 import requests
+class Summary:
+    def __init__(self, content) -> None:
+        content = content["centre"]
+        try:
+            content = content[0]
+        except IndexError:
+            raise IDError
+        content = content["summary"]
+        self.content = content
+    @property
+    def standard(self):
+        """Returns list [gameType, #missions, dateLastPlayed, highScore, averageScore"""
+        return self.content[0]
+    @property
+    def other(self):
+        """Returns list [gameType, #missions, dateLastPlayed, highScore, averageScore"""
+        return self.content[1]
+    @property
+    def counterstrike(self):
+        """Returns list [gameType, #missions, dateLastPlayed, highScore, averageScore"""
+        return self.content[2]
+    @property
+    def sm5(self):
+        """Returns list [gameType, #missions, dateLastPlayed, highScore, averageScore"""
+        return self.content[3]
+    @property
+    def ctf(self):
+        """Returns list [gameType, #missions, dateLastPlayed, highScore, averageScore"""
+        return self.content[4]
 class Missions:
     def __init__(self, content, amount) -> None:
         content = content["mission"]
@@ -72,7 +101,10 @@ class Achievements:
 class Stats:
     def __init__(self, content) -> None:
         content = content["centre"]
-        content = content[0]
+        try:
+            content = content[0]
+        except IndexError:
+            raise IDError
         self.content = content
     @property
     def site(self):
@@ -112,6 +144,8 @@ class Leaderboard:
         return self.content["1"]
 class queryError(Exception):
     pass
+class IDError(Exception):
+    pass
 def get_stats(id: int) -> Stats:
     id = str(id).replace("-", " ", 2)
     id = id.split()
@@ -127,7 +161,12 @@ def get_missions(id: int, amount: int) -> Missions:
     id = id.split()
     PARAMS = {"requestId": "1" ,"regionId": "9999","siteId": "9999", "memberRegion": id[0], "memberSite": id[1],"memberId": id[2], "token": ""}
     return Missions(requests.post(url="http://v2.iplaylaserforce.com/recentMissions.php", data=PARAMS).json(), amount)
-def get_leaderboard(amount, type="games") -> Leaderboard:
+def get_summary(id: int) -> Summary:
+    id = str(id).replace("-", " ", 2)
+    id = id.split()
+    PARAMS = {"requestId": "1" ,"regionId": "9999","siteId": "9999", "memberRegion": id[0], "memberSite": id[1],"memberId": id[2], "token": ""}
+    return Summary(requests.post(url="http://v2.iplaylaserforce.com/memberDetails.php", data=PARAMS).json())
+def get_leaderboard(amount, type: str ="games") -> Leaderboard:
     """type can be games or score"""
     if type == "games":
         queryType = 0
@@ -138,5 +177,5 @@ def get_leaderboard(amount, type="games") -> Leaderboard:
             raise queryError
     PARAMS = {"requestId": "1" ,"regionId": "9999","siteId": "9999", "memberRegion": "9999", "memberSite": "9999","memberId": "9999", "token": "", "selectedQueryType": queryType, "selectedCentreId":"0", "selectedGroupId":"0"}
     return Leaderboard(requests.post(url="http://v2.iplaylaserforce.com/globalScoring.php", data=PARAMS).json(), amount)
-test = get_leaderboard(100, "test")
-print(test.codename)
+test = get_summary("4-43-1265")
+print(test.standard[2])
