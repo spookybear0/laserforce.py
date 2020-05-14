@@ -15,5 +15,4 @@ Example of getting a players stats
 Stats
 ------
 
-.. autoclass:: Stats
-    :members:
+.. cls:: Stats
