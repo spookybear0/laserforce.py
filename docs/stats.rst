@@ -16,4 +16,5 @@ Example of getting a players stats:
 Stats
 ------
 
-.. autoclass:: Stats
+.. autoclass:: laserforce.Stats
+    ::members::
