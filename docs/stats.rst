@@ -15,4 +15,4 @@ Example of getting a players stats
 Stats
 ------
 
-.. cls:: Stats
+.. cls::'laserforcepy:Stats`
