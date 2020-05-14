@@ -1,7 +1,7 @@
 Stats
 ====
 Stats is where you get the stats of any player in laserforce.
-Example of getting a players stats
+Example of getting a players stats:
 
 .. code-block:: python3
 
