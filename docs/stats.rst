@@ -1,3 +1,4 @@
+.. currentmodule:: gd
 Stats
 ====
 Stats is where you get the stats of any player in laserforce.
