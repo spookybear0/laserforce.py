@@ -1,4 +1,3 @@
-.. currentmodule:: laserforce
 
 Stats
 ====
@@ -16,5 +15,5 @@ Example of getting a players stats:
 Stats
 ------
 
-.. autoclass:: laserforce.Stats
+.. autoclass:: laserforce.Summary
     ::members::
