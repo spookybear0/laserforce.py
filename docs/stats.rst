@@ -1,3 +1,5 @@
+.. currentmodule:: laserforce
+
 Stats
 ====
 Stats is where you get the stats of any player in laserforce.
@@ -14,4 +16,5 @@ Example of getting a players stats:
 Stats
 ------
 
-.. :class:`laserforce:Stats'
+.. autoclass:: Stats
+    :members:
