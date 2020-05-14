@@ -14,5 +14,4 @@ Example of getting a players stats:
 Stats
 ------
 
-.. autoclass:: laserforce.Stats
-   :members:
+.. :class:`laserforce:Stats'
