@@ -17,4 +17,3 @@ Stats
 ------
 
 .. autoclass:: Stats
-    :members:
