@@ -1,19 +1,18 @@
-.. currentmodule:: laserforce
-Stats
-====
-Stats is where you get the stats of any player in laserforce.
-Example of getting a players stats
+Welcome to laserforce.py's documentation!
+=================================
 
-.. code-block:: python3
+laserforce.py is a python module for interacting with the laserforce servers.
 
-    import laserforce as lf
-    
-    stats = get_stats("4-43-1265") # thats me
-    
-    print(stats.codename) # returns codename of 4-43-1265
-    
-Stats
-------
 
-.. autoclass:: Stats
-    :members:
+Documentation Contents
+-----------------------
+
+.. toctree::
+    :maxdepth: 2
+
+    stats
+
+
+If you still can't find what you're looking for, try in this page:
+
+* :ref:`genindex`
