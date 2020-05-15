@@ -189,7 +189,7 @@ def get_summary(id: str) -> Summary:
     PARAMS = {"requestId": "1" ,"regionId": "9999","siteId": "9999", "memberRegion": id[0], "memberSite": id[1],"memberId": id[2], "token": ""}
     return Summary(requests.post(url="http://v2.iplaylaserforce.com/memberDetails.php", data=PARAMS).json())
 def get_leaderboard(amount, type: str ="games") -> Leaderboard:
-    """Grabs summary from iplaylaserforce.com (type can be games or score.)"""
+    """Grabs top 100 leaderboard from iplaylaserforce.com (type can be games or score.)"""
     if type == "games":
         queryType = 0
     else:
@@ -200,7 +200,7 @@ def get_leaderboard(amount, type: str ="games") -> Leaderboard:
     PARAMS = {"requestId": "2" ,"regionId": "9999","siteId": "9999", "memberRegion": "9999", "memberSite": "9999","memberId": "9999", "token": "", "selectedQueryType": queryType, "selectedCentreId":"0", "selectedGroupId":"0"}
     return Leaderboard(requests.post(url="http://v2.iplaylaserforce.com/globalScoring.php", data=PARAMS).json(), amount)
 def get_leaderboard_from_id(id: str, type: str ="games") -> Leaderboard:
-    """Grabs summary from iplaylaserforce.com (type can be games or score)"""
+    """Grabs leaderboard around an ID from iplaylaserforce.com (type can be games or score)"""
     id = str(id).replace("-", " ", 2)
     id = id.split()
     if type == "games":
