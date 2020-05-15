@@ -10,23 +10,23 @@ class Summary:
         content = content["summary"]
         self.content = content
     @property
-    def standard(self) -> List:
+    def standard(self):
         """Returns list [gameType, #missions, dateLastPlayed, highScore, averageScore]"""
         return self.content[0]
     @property
-    def other(self) -> List:
+    def other(self):
         """Returns list [gameType, #missions, dateLastPlayed, highScore, averageScore]"""
         return self.content[1]
     @property
-    def counterstrike(self) -> List:
+    def counterstrike(self):
         """Returns list [gameType, #missions, dateLastPlayed, highScore, averageScore]"""
         return self.content[2]
     @property
-    def sm5(self) -> List:
+    def sm5(self):
         """Returns list [gameType, #missions, dateLastPlayed, highScore, averageScore]"""
         return self.content[3]
     @property
-    def ctf(self) -> List:
+    def ctf(self):
         """Returns list [gameType, #missions, dateLastPlayed, highScore, averageScore]"""
         return self.content[4]
 class Missions:
@@ -212,4 +212,3 @@ def get_leaderboard_from_id(id: str, type: str ="games") -> Leaderboard:
             raise queryError
     PARAMS = {"requestId": "2" ,"regionId": "9999","siteId": "9999", "memberRegion": id[0], "memberSite": id[1],"memberId": id[2], "token": "", "selectedQueryType": queryType, "selectedCentreId":"0", "selectedGroupId":"0"}
     return Leaderboard(requests.post(url="http://v2.iplaylaserforce.com/globalScoring.php", data=PARAMS).json())
-print(get_missions("4-43-1265", 1).date)
