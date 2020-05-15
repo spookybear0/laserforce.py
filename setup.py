@@ -1,17 +1,14 @@
-import setuptools
+from setuptools import setup
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
-
-setuptools.setup(
-    name="laserforce.api",
-    version="1.0.3",
-    author="SpookyBear0",
-    author_email="collinmcarroll@gmail.com",
-    description="An API for Laserforce in python!",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    url="https://github.com/SpookyBear0/laserforce.api",
-    packages=setuptools.find_packages(),
-    python_requires='>=3.5',
-)
+setup(name='laserforce',
+      version='1.0.0',
+      description="Python package for laserforce.",
+      long_description="",
+      author='SpookyBear0',
+      author_email='collinmcarroll@gmail.com',
+      packages=['laserforce'],
+      zip_safe=False,
+      install_requires=[
+          requests
+          ],
+      )
