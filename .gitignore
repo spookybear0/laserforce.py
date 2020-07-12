@@ -8,6 +8,7 @@ __pycache__/
 .pypirc
 pypy.bat
 build.bat
+test.*
 # Distribution / packaging
 .Python
 build/
