@@ -7,3 +7,4 @@ class Levels(Enum):
     4 = "Captain"
     5 = "Starlord"
     6 = "Lasermaster"
+    
