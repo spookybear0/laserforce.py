@@ -1,8 +1,5 @@
 import laserforce as lf
-import os
-import asyncio
-dir = __file__.strip("test.py")
-stats = asyncio.run(lf.get_missions("4-43-1265", 30))
+stats = lf.get_missions("4-43-1265", 30)
 missions = stats.all
 i = 0
 mylist = []
