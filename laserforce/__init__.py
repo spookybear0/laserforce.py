@@ -62,5 +62,3 @@ def get_leaderboard_from_id(id: str, type: str ="games"):
             raise ValueError
     PARAMS = {"requestId": "2" ,"regionId": "9999","siteId": "9999", "memberRegion": id[0], "memberSite": id[1],"memberId": id[2], "token": "", "selectedQueryType": queryType, "selectedCentreId":"0", "selectedGroupId":"0"}
     return Leaderboard(requests.post(url="http://v2.iplaylaserforce.com/globalScoring.php", data=PARAMS).json())
-
-get_summary("4-43-1265")
