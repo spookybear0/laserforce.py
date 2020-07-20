@@ -1,3 +1,4 @@
+.. currentmodule:: gd.api
 
 Stats
 ====
