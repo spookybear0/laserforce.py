@@ -8,3 +8,7 @@ install:
   - pip install -U tox
 script:
   - tox
+notifications:
+  webhooks:
+    urls:
+      - https://discord.com/api/webhooks/733245134413758504/0CwNlnkU1ExukpIjvEhn5pPh4limmsbPQ3di1SRMI4QYuWLR8rzZ-SiU2CHMLeS9mikW
