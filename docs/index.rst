@@ -8,8 +8,8 @@ Documentation Contents
 -----------------------
 
 .. toctree::
-
     :maxdepth: 2
+    
     stats
 
 If you still can't find what you're looking for, try in this page:
