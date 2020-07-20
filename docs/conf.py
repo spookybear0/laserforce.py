@@ -9,7 +9,7 @@ extensions = [
     "sphinx.ext.intersphinx",
     "sphinx.ext.napoleon",
     "sphinx.ext.viewcode",
-    "sphinxcontrib_trio",
+    # "sphinxcontrib_trio",
     # "rst2pdf.pdfbuilder",
 ]
 
@@ -33,12 +33,6 @@ master_doc = "index"
 
 project = "laserforce.py"
 copyright = "2019-2020, SpookyBear0"
-
-version = ""
-with open("../laserforce/__init__.py") as f:
-    version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE).group(1)
-
-release = version
 
 language = "en"
 
