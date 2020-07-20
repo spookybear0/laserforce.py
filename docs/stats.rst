@@ -1,4 +1,4 @@
-.. currentmodule:: gd.api
+.. currentmodule:: laserforce
 
 Stats
 ====
