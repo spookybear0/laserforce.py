@@ -24,4 +24,4 @@ Missions
 ------
 
 .. autoclass:: Missions
-    ::members::
+    :members:

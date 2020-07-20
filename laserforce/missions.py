@@ -1,6 +1,6 @@
 class Missions:
-    """Class that represents Missions. This class gives you the missions of a given player. You can also initalize this class with kwargs."""
-    def __init__(self, content, amount, **kw):
+    """Class that represents Missions. This class gives you the missions of a given player."""
+    def __init__(self, content, amount):
         content = content["mission"]
         newcontent = []
         i = 0
@@ -9,16 +9,6 @@ class Missions:
             i = i+1
         self.content = newcontent
         self.amount = amount
-        try: self.all = kw["all"]
-        except: pass
-        try: self.date = kw["date"]
-        except: pass
-        try: self.site = kw["site"]
-        except: pass
-        try: self.game_type = kw["game_type"]
-        except: pass
-        try: self.score = kw["score"]
-        except: pass
     @property
     def all(self):
         return self.content

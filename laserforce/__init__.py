@@ -1,10 +1,10 @@
 import requests
-from stats import Stats
-from achievements import Achievements
-from missions import Missions
-from leaderboard import Leaderboard
-from summary import Summary
-from other import *
+from laserforce.stats import Stats
+from laserforce.achievements import Achievements
+from laserforce.missions import Missions
+from laserforce.leaderboard import Leaderboard
+from laserforce.summary import Summary
+from laserforce.other import *
 
 def get_stats(id: str):
     """

@@ -7,6 +7,7 @@ Documentation Contents
 -----------------------
 
 .. toctree::
+   :maxdepth: 1
 
    stats
    summary
