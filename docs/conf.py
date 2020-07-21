@@ -9,8 +9,6 @@ extensions = [
     "sphinx.ext.intersphinx",
     "sphinx.ext.napoleon",
     "sphinx.ext.viewcode",
-    # "sphinxcontrib_trio",
-    # "rst2pdf.pdfbuilder",
 ]
 
 autodoc_member_order = "bysource"
@@ -47,6 +45,6 @@ pdf_documents = [
 
 exclude_patterns = ["build"]
 
-pygments_style = "friendly"  # we need to use "monokai" for dark theme I think ~ nekit
+pygments_style = "friendly"
 
 html_theme = "sphinx_rtd_theme"
