@@ -7,3 +7,6 @@ class Levels(Enum):
     four = "Captain"
     five = "Starlord"
     six = "Lasermaster"
+    
+class NotLoggedError(Exception):
+    pass
