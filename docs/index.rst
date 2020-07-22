@@ -1,5 +1,5 @@
 Welcome to laserforce.py's documentation!
-=================================
+=========================================
 
 laserforce.py is a python module for interacting with the laserforce servers.
 

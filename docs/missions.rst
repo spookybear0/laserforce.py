@@ -1,7 +1,7 @@
 .. currentmodule:: laserforce
 
 Missions
-================
+========
 This class is for getting the most recent missions
 
 .. code-block:: python3
