@@ -1,5 +1,7 @@
 from setuptools import setup
 
+root = pathlib.Path(__file__).parent
+
 setup(name="laserforce.py",
       version="1.0.0",
       description="Python package for laserforce.",
