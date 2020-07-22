@@ -15,6 +15,9 @@ Documentation Contents
    leaderboard
    missions
 
+.. automodule:: noodle
+   :members:
+
 If you still can't find what you're looking for, try in this page:
 
 * :ref:`genindex`
