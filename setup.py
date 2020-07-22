@@ -1,4 +1,5 @@
 from setuptools import setup
+import pathlib
 
 setup(name="laserforce.py",
       version="1.0.01",
