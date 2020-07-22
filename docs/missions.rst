@@ -1,3 +1,5 @@
+.. currentmodule:: laserforce
+
 Missions
 ====
 This class is for getting the most recent missions
@@ -21,5 +23,5 @@ This class is for getting the most recent missions
 Missions
 ------
 
-.. autoclass:: laserforce.Missions
+.. autoclass:: Missions
     :members:
