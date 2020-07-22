@@ -11,4 +11,4 @@ setup(name="laserforce.py",
       author_email="collinmcarroll@gmail.com",
       packages=["laserforce"],
       zip_safe=False,
-      )
+)
