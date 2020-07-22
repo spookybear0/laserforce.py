@@ -3,6 +3,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.abspath(".."))
+os.system("python3.7 -m pip install sphinxcontrib_trio")
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.extlinks",
