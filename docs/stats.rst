@@ -1,6 +1,6 @@
 .. currentmodule:: laserforce
 
-Stats
+Getting Stats
 ====
 Stats is where you get the stats of any player in laserforce.
 Example of getting a players stats:

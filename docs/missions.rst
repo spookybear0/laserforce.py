@@ -1,6 +1,6 @@
 .. currentmodule:: laserforce
 
-Missions
+Getting Missions
 ====
 This class is for getting the most recent missions
 
