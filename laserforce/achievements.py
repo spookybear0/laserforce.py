@@ -20,23 +20,23 @@ class Achievements:
         except: pass
     @property
     def image(self):
-        """Returns image url of acheviement"""
+        """Image url of acheviement"""
         content = self.content[self.amount]
         content = content["image"]
         return f"http://v2.iplaylaserforce.com/images/{content}.jpg"
     @property
     def name(self):
-        """Returns name of acheviement"""
+        """Name of acheviement"""
         content = self.content[self.amount]
         return content["name"]
     @property
     def description(self):
-        """Returns description of acheviement"""
+        """Description of acheviement"""
         content = self.content[self.amount]
         return content["description"]
     @property
     def progress(self):
-        """Returns progress of acheveiement"""
+        """Progress of acheveiement"""
         content = self.content[self.amount]
         if content["progressText"] == "":
             return None
@@ -44,7 +44,7 @@ class Achievements:
             return content["progressText "]
     @property
     def completed(self):
-        """Returns if the acheveiement is completed"""
+        """If the acheveiement is completed"""
         content = self.content[self.amount]
         if content["achievedDate"] == "0000-00-00":
             return False
@@ -52,7 +52,7 @@ class Achievements:
             return True
     @property
     def achieved(self):
-        """Returns when acheveiement was completed"""
+        """When acheveiement was completed"""
         content = self.content[self.amount]
         content = content["achievedDate"]
         if content == "0000-00-00":

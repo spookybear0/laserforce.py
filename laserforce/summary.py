@@ -32,26 +32,26 @@ class Summary:
 
     @property
     def standard(self):
-        """Returns list [gameType, #missions, dateLastPlayed, highScore, averageScore]"""
+        """List [gameType, #missions, dateLastPlayed, highScore, averageScore]"""
         return self.content[0]
 
     @property
     def other(self):
-        """Returns list [gameType, #missions, dateLastPlayed, highScore, averageScore]"""
+        """List [gameType, #missions, dateLastPlayed, highScore, averageScore]"""
         return self.content[1]
 
     @property
     def counter_strike(self):
-        """Returns list [gameType, #missions, dateLastPlayed, highScore, averageScore]"""
+        """List [gameType, #missions, dateLastPlayed, highScore, averageScore]"""
         return self.content[2]
 
     @property
     def space_marines(self):
-        """Returns list [gameType, #missions, dateLastPlayed, highScore, averageScore]"""
+        """List [gameType, #missions, dateLastPlayed, highScore, averageScore]"""
         return self.content[3]
 
     @property
     def ctf(self):
-        """Returns list [gameType, #missions, dateLastPlayed, highScore, averageScore]"""
+        """List [gameType, #missions, dateLastPlayed, highScore, averageScore]"""
         return self.content[4]
     

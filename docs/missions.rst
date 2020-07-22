@@ -6,8 +6,12 @@ This class is for getting the most recent missions
 
 .. code-block:: python3
 
-    import laserforce as lf
-    stats = lf.get_missions("4-43-1265", 30)
+    import laserforce
+
+    client = laserforce.Client()
+    client.login("4-43-1265")
+
+    stats = client.get_missions(30)
     missions = stats.all
     i = 0
     mylist = []
@@ -23,5 +27,5 @@ This class is for getting the most recent missions
 Missions
 --------
 
-.. autoclass:: Missions
+.. autoclass:: laserforce.mission.Mission
     :members:

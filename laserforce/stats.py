@@ -22,32 +22,32 @@ class Stats:
 
     @property
     def site(self):
-        """Returns players main site"""
+        """Players main site"""
         return self.content["name"]
 
     @property
     def codename(self):
-        """Returns players codename"""
+        """Players codename"""
         return self.content["codename"]
 
     @property
     def joindate(self):
-        """Returns joindate of player"""
+        """Joindate of player"""
         return self.content["joined"]
 
     @property
     def missions(self):
-        """Returns number of missions in total"""
+        """Number of missions in total"""
         return self.content["missions"]
 
     @property
     def skill_level(self):
-        """Returns skill level as int"""
+        """Skill level as int"""
         self.content = self.content["skillLevelNum"]
         return int(self.content)+1
 
     @property
     def skill_level_name(self):
-        """Returns name of skill level"""
+        """Name of skill level"""
         return self.content["skillLevelName"]
         

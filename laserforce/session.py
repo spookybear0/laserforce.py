@@ -1,6 +1,6 @@
 from laserforce.stats import Stats
 from laserforce.achievements import Achievements
-from laserforce.missions import Missions
+from laserforce.mission import Mission
 from laserforce.leaderboard import Leaderboard
 from laserforce.summary import Summary
 from laserforce.other import NotLoggedError
@@ -39,7 +39,7 @@ class Session:
         id = str(id).replace("-", " ", 2)
         id = id.split()
         PARAMS = {"requestId": "1" ,"regionId": "9999","siteId": "9999", "memberRegion": id[0], "memberSite": id[1],"memberId": id[2], "token": ""}
-        return Missions(requests.post(url="http://v2.iplaylaserforce.com/recentMissions.php", data=PARAMS).json(), amount)
+        return Mission(requests.post(url="http://v2.iplaylaserforce.com/recentMissions.php", data=PARAMS).json(), amount)
         
     def get_summary(self, logged, id):
         """

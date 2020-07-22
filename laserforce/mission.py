@@ -1,4 +1,4 @@
-class Missions:
+class Mission:
     """Class that represents Missions. This class gives you the missions of a given player."""
     def __init__(self, content, amount):
         content = content["mission"]
@@ -14,7 +14,7 @@ class Missions:
         return self.content
     @property
     def date(self):
-        """Returns when the mission was played"""
+        """When the mission was played"""
         content = []
         i = 0
         while i < self.amount:
@@ -29,7 +29,7 @@ class Missions:
         return newcontent
     @property
     def site(self):
-        """Returns what site the mission was played at"""
+        """What site the mission was played at"""
         content = []
         i = 0
         while i < self.amount:
@@ -44,7 +44,7 @@ class Missions:
         return newcontent
     @property
     def game_type(self):
-        """Returns the type of game that was played"""
+        """The type of game that was played"""
         content = []
         i = 0
         while i < self.amount:
@@ -59,7 +59,7 @@ class Missions:
         return newcontent
     @property
     def score(self):
-        """Returns score of mission as int"""
+        """Score of mission as int"""
         content = []
         i = 0
         while i < self.amount:

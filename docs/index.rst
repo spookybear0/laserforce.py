@@ -10,13 +10,10 @@ Documentation Contents
    :maxdepth: 2
 
    stats
-   summary
-   achievements
-   leaderboard
    missions
-
-.. automodule:: noodle
-   :members:
+   summary
+.. achievements
+.. leaderboard
 
 If you still can't find what you're looking for, try in this page:
 

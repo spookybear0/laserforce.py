@@ -17,25 +17,25 @@ class Leaderboard:
         except: pass
     @property
     def games(self):
-        """Returns how many games the player has played"""
+        """Hsow many games the player has played"""
         self.content = self.content[self.amount-1]
         return self.content["3"]
     @property
     def codename(self):
-        """Returns codename of the player"""
+        """Codename of the player"""
         self.content = self.content[self.amount-1]
         return self.content["2"]
     @property
     def rank(self):
-        """Returns rank of the player"""
+        """Rank of the player"""
         self.content = self.content[self.amount-1]
         return self.content["0"]
     @property
     def site(self):
-        """Returns player's main site'"""
+        """Player's main site'"""
         self.content = self.content[self.amount-1]
         return self.content["1"]
     @property
     def my_rank(self):
-        """Returns ranking of given ID"""
+        """Ranking of given ID"""
         return self.content[100]
