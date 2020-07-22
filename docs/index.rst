@@ -7,9 +7,8 @@ Documentation Contents
 -----------------------
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
-   index
    stats
    summary
    achievements
