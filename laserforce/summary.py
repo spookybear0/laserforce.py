@@ -43,15 +43,14 @@ class Summary:
     @property
     def counter_strike(self):
         """List [gameType, #missions, dateLastPlayed, highScore, averageScore]"""
-        return self.content[2]
+        return self.content[4]
 
     @property
     def space_marines(self):
         """List [gameType, #missions, dateLastPlayed, highScore, averageScore]"""
-        return self.content[3]
+        return self.content[2]
 
     @property
     def ctf(self):
         """List [gameType, #missions, dateLastPlayed, highScore, averageScore]"""
-        return self.content[4]
-    
+        return self.content[3]

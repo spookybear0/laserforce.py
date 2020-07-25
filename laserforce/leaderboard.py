@@ -1,7 +1,6 @@
 class Leaderboard:
     """Class that represents Leaderboard. This class gives you info about the leaderboard. You can also initalize this class with kwargs."""
     def __init__(self, content, amount=100, **kw) -> None:
-        print(content)
         content = content["top100"]
         self.content = content
         self.amount = amount

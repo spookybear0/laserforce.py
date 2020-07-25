@@ -9,6 +9,10 @@ class Client:
     def login(self, id):
         self.id = id
         self.logged = True
+        
+    def logout(self):
+        self.id = None
+        self.logged = False
     
     def is_logged(self):
         return self.logged
