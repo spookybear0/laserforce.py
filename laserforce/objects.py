@@ -152,6 +152,32 @@ class Player:
             leaderboard.append(LeaderboardPosition(*pos.values()))
         
         return leaderboard
+
+    @property
+    def ipl_id(self): # REALLY slow but its the only way to be sure
+        """
+        Grabs summary from iplaylaserforce.com (type can be games or score)
+        """
+        id = self.id
+        
+        params = {"requestId": "2",
+                  "regionId": "9999",
+                  "siteId": "9999",
+                  "memberRegion": id[0],
+                  "memberSite": id[1],
+                  "memberId": id[2],
+                  "token": "",
+                  "selectedQueryType": type,
+                  "selectedCentreId":"0",
+                  "selectedGroupId":"0"}
+        
+        json = requests.post(url="http://v2.iplaylaserforce.com/globalScoring.php", data=params).json()["top100"]
+        
+        for player in json:
+            if player["2"] == self.codename:
+                ret = player["DT_RowId"].replace("token_", "#")
+        
+        return ret
     
     id: List[int]
     site: str

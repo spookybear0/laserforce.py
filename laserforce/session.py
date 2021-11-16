@@ -46,10 +46,10 @@ class Session:
         Grabs summary from iplaylaserforce.com (type can be games or score.)
         """
         
+        type = type.value
+        
         if type > 1 or type < 0:
             raise ValueError("type must be LeaderboardType.GAMES or LeaderboardType.SCORE.")
-        
-        type = type.value
         
         params = {"requestId": "2",
                   "regionId": "9999",
