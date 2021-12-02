@@ -179,6 +179,7 @@ class Player:
         
         return ret
     
+    avatar: str
     id: List[int]
     site: str
     codename: str
