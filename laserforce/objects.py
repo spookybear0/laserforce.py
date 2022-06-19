@@ -106,7 +106,6 @@ class Player:
                     achievements = []
                     
                     for i, j in enumerate(data):
-                        print(i, j)
                         completed: bool = j["achievedDate"] != "0000-00-00"
                         image: str = "http://v2.iplaylaserforce.com/images/{}.jpg".format(j["image"])
 
