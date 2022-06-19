@@ -74,10 +74,10 @@ class Player:
     codename: str
     avatar: str
     join_date: str
-    missions_count: int
+    games: int
     skill_level: int
     skill_level_name: str
-
+    
     async def missions(self) -> List[Mission]:
         params = construct_request(parse_id(self.id))
         
