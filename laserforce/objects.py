@@ -1,8 +1,13 @@
 from dataclasses import dataclass
 from enum import Enum
 from laserforce import helpers
-from typing import List
+from typing import List, Union
+from laserforce.helpers import parse_id, construct_request, MEMBER_DETAILS, RECENT_MISSIONS, ACHIEVEMENTS, GLOBAL_SCORING
+import datetime
 import requests
+import aiohttp
+import asyncio
+import json
 
 class NotLoggedError(Exception):
     pass
@@ -12,10 +17,18 @@ class LeaderboardType(Enum):
     SCORE = 1
 
 @dataclass
+class GameType:
+    name: str
+    missions_played: int
+    last_played: str
+    high_score: int
+    average_score: int
+
+@dataclass
 class Mission:
     date: str
     site: str
-    game_type: str
+    game_type: GameType
     score: int
 
 @dataclass
@@ -28,14 +41,6 @@ class Achievement:
     completed: bool
     
 @dataclass
-class GameType:
-    name: str
-    missions_played: int
-    last_played: str
-    high_score: int
-    average_score: int
-    
-@dataclass
 class Summary:
     standard: GameType=None
     other: GameType=None
@@ -43,6 +48,17 @@ class Summary:
     counter_strike: GameType=None
     ctf: GameType=None
     
+@dataclass
+class Site:
+    name: str
+    codename: str
+    avatar: str
+    join_date: datetime.datetime
+    missions: int
+    skill_level: int
+    skill_level_name: str
+    summary: Summary
+
 @dataclass
 class LeaderboardPosition:
     positon: int
@@ -52,140 +68,108 @@ class LeaderboardPosition:
 
 @dataclass
 class Player:
-    @property
-    def missions(self) -> List[Mission]:
-        """
-        Grabs missions from iplaylaserforce.com
-        """
-        id = self.id
-        params = {"requestId": "1",
-                  "regionId": "9999",
-                  "siteId": "9999",
-                  "memberRegion": id[0],
-                  "memberSite": id[1],
-                  "memberId": id[2],
-                  "token": ""}
-        
-        req = requests.post(url="http://v2.iplaylaserforce.com/recentMissions.php", data=params).json()
-        
-        json = helpers.format_json(req)["mission"]
-        
-        missions = []
-        
-        for i in range(len(json)):
-            missions.append(Mission(*json[i]))
-        
-        return missions
-    
-    @property
-    def achievements(self) -> List[Achievement]:
-        """
-        Grabs achievements from iplaylaserforce.com
-        """
-        id = self.id
-        params = {"requestId": "1",
-                  "regionId": "9999",
-                  "siteId": "9999",
-                  "memberRegion": id[0],
-                  "memberSite": id[1],
-                  "memberId": id[2],
-                  "token": ""}
-        
-        req = requests.post(url="http://v2.iplaylaserforce.com/achievements.php", data=params).json()
-        
-        json = helpers.format_json(req)["centre"][0]["achievements"]
-        
-        achievements = []
-        
-        to_replace = {"achievedDate": "achieved", "progressText": "progress"}
-        
-        for i, j in enumerate(json):
-            for key, value in to_replace.items():
-                json[i][value] = json[i][key]
-                json[i].pop(key)
-            j.pop("progressA")
-            j.pop("progressB")
-            j.pop("globalId")
-            j.pop("newAchievement")
-            j["completed"] = j["achieved"] != "0000-00-00"
-            j["image"] = "http://v2.iplaylaserforce.com/images/{}.jpg".format(j["image"])
-        
-        for i, a in enumerate(json):
-            achievements.append(Achievement(**json[i]))
-            
-        return achievements
-    
-    @property
-    def leaderboard(self, type: LeaderboardType=LeaderboardType.GAMES):
-        """
-        Grabs summary from iplaylaserforce.com (type can be games or score)
-        """
-        id = self.id
-        
-        type = type.value
-        
-        if type > 1 or type < 0:
-            raise ValueError("type must be LeaderboardType.GAMES or LeaderboardType.SCORE.")
-        
-        params = {"requestId": "2",
-                  "regionId": "9999",
-                  "siteId": "9999",
-                  "memberRegion": id[0],
-                  "memberSite": id[1],
-                  "memberId": id[2],
-                  "token": "",
-                  "selectedQueryType": type,
-                  "selectedCentreId":"0",
-                  "selectedGroupId":"0"}
-        
-        json = requests.post(url="http://v2.iplaylaserforce.com/globalScoring.php", data=params).json()["top100"]
-        
-        leaderboard = []
-        
-        for pos in json:
-            pos.pop("DT_RowId")
-            pos.pop("4")
-            if pos["2"] == self.codename:
-                pos["0"] = 0
-                leaderboard.insert(0, LeaderboardPosition(*pos.values()))
-                continue
-            leaderboard.append(LeaderboardPosition(*pos.values()))
-        
-        return leaderboard
-
-    @property
-    def ipl_id(self): # REALLY slow but its the only way to be sure
-        """
-        Grabs summary from iplaylaserforce.com (type can be games or score)
-        """
-        id = self.id
-        
-        params = {"requestId": "2",
-                  "regionId": "9999",
-                  "siteId": "9999",
-                  "memberRegion": id[0],
-                  "memberSite": id[1],
-                  "memberId": id[2],
-                  "token": "",
-                  "selectedQueryType": type,
-                  "selectedCentreId":"0",
-                  "selectedGroupId":"0"}
-        
-        json = requests.post(url="http://v2.iplaylaserforce.com/globalScoring.php", data=params).json()["top100"]
-        
-        for player in json:
-            if player["2"] == self.codename:
-                ret = player["DT_RowId"].replace("token_", "#")
-        
-        return ret
-    
-    avatar: str
     id: List[int]
-    site: str
+    site: str # main site
+    sites: List[str] # all sites
     codename: str
+    avatar: str
     join_date: str
     missions_count: int
     skill_level: int
-    real_skill_level: int
     skill_level_name: str
-    summary: Summary
+
+    async def missions(self) -> List[Mission]:
+        params = construct_request(parse_id(self.id))
+        
+        async with aiohttp.ClientSession() as session:
+            async with session.post(RECENT_MISSIONS, data=params) as resp:
+                data = json.loads(await resp.text())["mission"]
+        
+                missions: List[Mission] = []
+                
+                for i in range(len(data)):
+                    missions.append(Mission(*data[i]))
+                
+                return missions
+    
+    async def achievements(self) -> List[Achievement]:
+        params = construct_request(parse_id(self.id))
+        
+        async with aiohttp.ClientSession() as session:
+            async with session.post(ACHIEVEMENTS, data=params) as resp:
+                arenas = []
+
+                # for each centre
+                for arena in json.loads(await resp.text())["centre"]:
+                    data = arena["achievements"]
+        
+                    achievements = []
+                    
+                    for i, j in enumerate(data):
+                        print(i, j)
+                        completed: bool = j["achievedDate"] != "0000-00-00"
+                        image: str = "http://v2.iplaylaserforce.com/images/{}.jpg".format(j["image"])
+
+                        achievements.append(Achievement(j["name"], image, j["description"], j["achievedDate"], j["progressText"], completed))
+                
+                    arenas.append(achievements)
+            
+        return achievements
+    
+    async def leaderboard(self, type: LeaderboardType=LeaderboardType.GAMES) -> List[LeaderboardPosition]:
+        params = construct_request(parse_id(self.id), str(type.value))
+
+        async with aiohttp.ClientSession() as session:
+            async with session.post(GLOBAL_SCORING, data=params) as resp:
+                data = json.loads(await resp.text())["top100"]
+
+                leaderboard = []
+                
+                for player in data:
+                    if player["2"] == self.codename:
+                        leaderboard.insert(0, LeaderboardPosition(0, player["1"], player["2"], player["3"]))
+                        continue
+                    leaderboard.append(LeaderboardPosition(player["0"], player["1"], player["2"], player["3"]))
+                
+                return leaderboard
+
+    async def ipl_id(self) -> str: # REALLY slow but its the only way to be sure
+        # i hate this, but it's the only way to have async properties
+        params = construct_request(parse_id(self.id), "0")
+        
+        async with aiohttp.ClientSession() as session:
+            async with session.post(GLOBAL_SCORING, data=params) as resp:
+                data = json.loads(await resp.text())["top100"]
+        
+                for player in data:
+                    if player["2"] == self.codename:
+                        ret = player["DT_RowId"].replace("token_", "#")
+        return ret
+
+    @classmethod
+    async def from_id(cls, id: Union[str, List]) -> "Player":
+        params = construct_request(parse_id(id))
+
+        async with aiohttp.ClientSession() as session:
+            async with session.post(MEMBER_DETAILS, data=params) as resp:
+                # data is a dict containing all played arenas and their stats
+                data = json.loads(await resp.text())["centre"] # we only need centre
+
+                # this is how ipl does it (it's not even fully implemented atm)     You, 21 minutes ago uncommited changes
+                avatar = None
+
+                sites: List[Site] = []
+                mission_count = 0
+
+                # first avatar available
+                for arena in data:
+                    mission_count += arena["missions"]
+                    sites.append(Site(arena["name"], arena["codename"], arena["avatar"],
+                                      arena["joined"], arena["missions"], arena["skillLevelNum"]+1,
+                                      arena["skillLevelName"], Summary(*arena["summary"])))
+                    if arena["avatar"] and not avatar:
+                        avatar = arena["avatar"]
+
+                return Player(id, sites[0], sites, sites[0].codename,
+                              avatar, sites[0].join_date, mission_count,
+                              sites[0].skill_level, sites[0].skill_level_name)
