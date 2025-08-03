@@ -9,7 +9,7 @@ sphinx:
 build:
   os: ubuntu-20.04
   tools:
-    python: 3.13
+    python: "3.13"
   commands:
     - pip install -U pip
     - pip install -e .[docs]
@@ -18,4 +18,3 @@ build:
 python:
   install:
     - requirements: docs/requirements.txt
-  version: 3.13
