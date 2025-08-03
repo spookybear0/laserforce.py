@@ -15,7 +15,7 @@ build:
   commands:
     - pip install -U pip
     - pip install -e .[docs]
-    - sphinx-build -W -b html docs $READTHEDOCS_OUTPUT/html
+    - python -m sphinx.cmd.build -W -b html docs $READTHEDOCS_OUTPUT/html
 
 python:
   install:
