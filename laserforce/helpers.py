@@ -1,11 +1,16 @@
 from typing import List, Union
 
-MEMBER_DETAILS = "http://v2.iplaylaserforce.com/memberDetails.php"
-RECENT_MISSIONS = "http://v2.iplaylaserforce.com/recentMissions.php"
-ACHIEVEMENTS = "http://v2.iplaylaserforce.com/achievements.php"
-GLOBAL_SCORING = "http://v2.iplaylaserforce.com/globalScoring.php"
+MEMBER_DETAILS = "https://v2.iplaylaserforce.com/memberDetails.php"
+RECENT_MISSIONS = "https://v2.iplaylaserforce.com/recentMissions.php"
+ACHIEVEMENTS = "https://v2.iplaylaserforce.com/achievements.php"
+GLOBAL_SCORING = "https://v2.iplaylaserforce.com/globalScoring.php"
 
-def construct_request(id: Union[str, List[int]], type=None):
+PlayerId = Union[str, List[int]]
+
+def construct_request(id: PlayerId, type_=None):
+    if type(id) == str:
+        id = parse_id(id)
+
     ret = {
         "requestId": "1",
         "regionId": "9999",
@@ -16,8 +21,8 @@ def construct_request(id: Union[str, List[int]], type=None):
         "token": ""
     }
 
-    if type:
-        ret["selectedQueryType"] = type
+    if type_:
+        ret["selectedQueryType"] = type_
         ret["selectedCentreId"] = "0"
         ret["selectedGroupId"] = "0"
 

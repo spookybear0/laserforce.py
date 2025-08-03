@@ -1,7 +1,7 @@
 Welcome to laserforce.py's documentation!
 =========================================
 
-laserforce.py is a python module for interacting with the laserforce servers.
+laserforce.py is a python module for interacting with the iplaylaserforce.com api.
 
 Documentation Contents
 -----------------------
@@ -9,11 +9,11 @@ Documentation Contents
 .. toctree::
    :maxdepth: 2
 
-   stats
-   missions
-   summary
-.. achievements
-.. leaderboard
+   player
+   site
+   achievement
+   gamesummary
+   mission
 
 If you still can't find what you're looking for, try in this page:
 
