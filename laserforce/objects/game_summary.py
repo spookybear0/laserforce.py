@@ -1,4 +1,5 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
 @dataclass
 class GameSummary:
@@ -8,6 +9,8 @@ class GameSummary:
     high_score: int
     average_score: int
 
+    if TYPE_CHECKING:
+        from laserforce.objects.site import Site
     site: "Site"
 
     # don't show the entire site object in the representation
