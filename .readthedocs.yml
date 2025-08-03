@@ -10,16 +10,13 @@ build:
   os: ubuntu-20.04
   tools:
     python:
-      version: "3.13.0"
-      install:
-        - pip
-        - setuptools
-        - wheel
-        - docs
-        - sphinx
-        - sphinx-rtd-theme
-        - requirements: requirements.txt
+      version: 3.13
   commands:
     - pip install -U pip
     - pip install -e .[docs]
     - sphinx-build -W -b html docs docs/_build/html
+
+python:
+  install:
+    - requirements: docs/requirements.txt
+  version: 3.13
