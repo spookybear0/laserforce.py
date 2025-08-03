@@ -30,7 +30,7 @@ source_suffix = ".rst"
 master_doc = "index"
 
 project = "laserforce.py"
-copyright = "2019-2020, SpookyBear0"
+copyright = "2025, spookybear0"
 
 language = "en"
 
@@ -39,7 +39,7 @@ pdf_documents = [
         "index",
         "Laserforce.py Documentation",
         "laserforce.py documentation, built with PDF format.",
-        "SpookyBear0",
+        "spookybear0",
     )
 ]
 
