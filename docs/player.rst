@@ -33,7 +33,7 @@ Here's how you can do it if you only have the player's entity_id/token
     import asyncio
 
     async def main():
-        player = await laserforce.Player.from_token("#BX8dWs") # the # is optional
+        player = await laserforce.Player.from_entity_id("#BX8dWs") # the # is optional
         
         print(player) # laserforce.Player
 
