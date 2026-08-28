@@ -7,9 +7,12 @@ GLOBAL_SCORING = "https://v2.iplaylaserforce.com/globalScoring.php"
 
 PlayerId = Union[str, List[int]]
 
-def construct_request(id: PlayerId, type_=None):
-    if type(id) == str:
-        id = parse_id(id)
+def construct_request(id: PlayerId=None, entity_id: str="", type_=None):
+    if id:
+        if type(id) == str:
+            id = parse_id(id)
+    else:
+        id = ["0", "0", "0"]
 
     ret = {
         "requestId": "1",
@@ -18,7 +21,7 @@ def construct_request(id: PlayerId, type_=None):
         "memberRegion": id[0],
         "memberSite": id[1],
         "memberId": id[2],
-        "token": ""
+        "token": entity_id
     }
 
     if type_:

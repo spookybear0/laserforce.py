@@ -24,6 +24,26 @@ Example of getting basic player information from a player ID:
         print(player.avatar_image_link) # The link to the player's avatar image
 
     asyncio.run(main())
+
+Here's how you can do it if you only have the player's entity_id/token
+
+.. code-block:: python3
+
+    import laserforce
+    import asyncio
+
+    async def main():
+        player = await laserforce.Player.from_token("#BX8dWs") # the # is optional
+        
+        print(player) # laserforce.Player
+
+        print(player.codename) # The player's codename
+        print(player.join_date) # The date the player joined
+        print(player.total_mission_count) # The total number of missions the player has played across all sites
+        print(player.total_score) # The total score the player has achieved
+        print(player.avatar_image_link) # The link to the player's avatar image
+
+    asyncio.run(main())
     
 Player
 ------

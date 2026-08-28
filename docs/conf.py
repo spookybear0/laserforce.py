@@ -30,7 +30,7 @@ source_suffix = ".rst"
 master_doc = "index"
 
 project = "laserforce.py"
-copyright = "2025, spookybear0"
+copyright = "2026, spookybear0"
 
 language = "en"
 

@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "laserforce.py"
+version = "2.1.0"
+description = "A python package for interacting with iplaylaserforce.com."
+authors = ["Chloe Carroll <chloecarroll103@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.0"
+
+
+[tool.pdm]
+distribution = true
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "laserforce.py"
+version = "2.1.0"
+description = "A python package for interacting with iplaylaserforce.com."
+authors = [
+    {name = "Chloe Carroll",email = "chloecarroll103@gmail.com"},
+]
+dependencies = [
+    "aiohttp>=3.8.1,<4.0"
+]
+requires-python = "<4.0,>=3.8"
+readme = "README.md"
+license = {text = "MIT"}
+

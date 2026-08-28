@@ -10,7 +10,8 @@ import datetime
 
 @dataclass
 class Player:
-    id: PlayerId
+    id: Optional[PlayerId]
+    entity_id: Optional[str]
     sites: List[Site]
     codename: str # main site codename
     avatar: int
@@ -59,9 +60,59 @@ class Player:
                 summary.site = site
             
             
-        return Player(player_id, sites, centres[0]["codename"],
+        return Player(player_id, "", sites, centres[0]["codename"],
                       centres[0]["avatar"], datetime.datetime.strptime(centres[0]["joined"], "%Y-%m-%d"),
                       total_mission_count=mission_count)
+    
+    @staticmethod
+    async def from_entity_id(entity_id: str) -> "Player":
+        """
+        Get a player object from their entity ID.
+
+        :param entity_id: The entity ID of the player to get.
+        :type entity_id: str
+
+        :return: A Player object with the player's details.
+        :rtype: Player
+        """
+
+        entity_id = entity_id.lstrip("#") # remove # from entity_id if it exists
+
+        req_manager = RequestManager()
+
+        data = await req_manager.post(MEMBER_DETAILS, entity_id=entity_id)
+
+        centres = data["centre"]
+
+        sites: List[Site] = []
+        mission_count: int = 0
+
+        for arena in centres:
+            mission_count += arena["missions"]
+
+            summaries = []
+            
+            for game_summary in arena["summary"]:
+                game_summary[2] = datetime.datetime.strptime(game_summary[2], "%Y-%m-%d %H:%M:%S")
+                summaries.append(GameSummary(*game_summary, None))
+
+            # skillLevelNum starts at 0 normally, in laserforce.py it
+            # does not to match what it should normally look like to users
+            
+            site = Site(arena["name"], arena["codename"], arena["avatar"],
+                              arena["joined"], arena["missions"], arena["skillLevelNum"]+1,
+                              arena["skillLevelName"], summaries)
+            sites.append(site) # add site to list of sites
+            
+            # add site to summary
+            for summary in site.summaries:
+                summary.site = site
+            
+            
+        return Player(None, entity_id, sites, centres[0]["codename"],
+                      centres[0]["avatar"], datetime.datetime.strptime(centres[0]["joined"], "%Y-%m-%d"),
+                      total_mission_count=mission_count)
+        
     
     @property
     def avatar_image_link(self) -> str:
@@ -82,7 +133,7 @@ class Player:
         """
 
         req_manager = RequestManager()
-        data = await req_manager.post(RECENT_MISSIONS, self.id)
+        data = await req_manager.post(RECENT_MISSIONS, self.id, self.entity_id)
         missions: List[Mission] = []
 
         for mission in data["mission"]:
@@ -106,7 +157,7 @@ class Player:
 
         req_manager = RequestManager()
         site_id: str = "Global Achievements" if site is None else (site if type(site) == str else site.name)
-        data = await req_manager.post(ACHIEVEMENTS, self.id)
+        data = await req_manager.post(ACHIEVEMENTS, self.id, self.entity_id)
 
         for site in data["centre"]:
             if site["name"] == site_id:

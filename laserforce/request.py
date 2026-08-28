@@ -14,13 +14,13 @@ class RequestManager: # singleton
     def __init__(self, player_id: Optional[PlayerId]=None) -> None:
         self.player_id: Optional[PlayerId] = player_id
 
-    async def post(self, endpoint: str, player_id: Optional[PlayerId]=None):
+    async def post(self, endpoint: str, player_id: Optional[PlayerId]=None, entity_id: str="") -> dict:
         async with aiohttp.ClientSession() as session:
             p_id: Optional[PlayerId] = player_id if player_id is not None else self.player_id
 
-            if p_id is None: # still None
+            if p_id is None and not entity_id:
                 raise ValueError("No player id passed!")
 
-            params = construct_request(p_id) # type: ignore
+            params = construct_request(p_id, entity_id) # type: ignore
             async with session.post(endpoint, data=params) as resp:
                 return json.loads(await resp.text())
