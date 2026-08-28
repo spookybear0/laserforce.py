@@ -5,7 +5,7 @@ root = pathlib.Path(__file__).parent
 
 setup(
     name="laserforce.py",
-    version="2.1.0",
+    version="2.1.1",
     description="A python package for interacting with iplaylaserforce.com.",
     long_description=(root / "README.md").read_text("utf-8"),
     author="spookybear0",

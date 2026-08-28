@@ -12,6 +12,10 @@ python = "^3.8"
 pytest = "^7.0"
 
 
+[tool.setuptools.packages.find]
+# Enable scanning for namespace sub-packages
+namespaces = true 
+
 [tool.pdm]
 distribution = true
 [build-system]
@@ -21,7 +25,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "laserforce.py"
-version = "2.1.0"
+version = "2.1.1"
 description = "A python package for interacting with iplaylaserforce.com."
 authors = [
     {name = "Chloe Carroll",email = "chloecarroll103@gmail.com"},
