@@ -31,7 +31,7 @@ authors = [
     {name = "Chloe Carroll",email = "chloecarroll103@gmail.com"},
 ]
 dependencies = [
-    "aiohttp>=3.8.1,<4.0"
+    "aiohttp>=3.12.14,<4.0",
 ]
 requires-python = "<4.0,>=3.8"
 readme = "README.md"
